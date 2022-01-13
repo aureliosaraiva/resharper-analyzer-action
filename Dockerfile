@@ -5,21 +5,17 @@ COPY . .
 RUN CGO_ENABLED=0 go build -ldflags="-s -w"
 RUN ls -lh
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+FROM mcr.microsoft.com/dotnet/sdk:6.0
 ENV RESHARPER_CLI_VERSION=2019.3.4
 
 RUN mkdir -p /usr/local/share/dotnet/sdk/NuGetFallbackFolder
 
 WORKDIR /resharper
-RUN \
-  curl -o resharper.tgz -L "https://download.jetbrains.com/resharper/ReSharperUltimate.$RESHARPER_CLI_VERSION/JetBrains.ReSharper.CommandLineTools.Unix.$RESHARPER_CLI_VERSION.tar.gz" \
-  && tar -xvf resharper.tgz \
-  && rm resharper.tgz \
-  && rm -rf macos-x64
-ENV PATH="/resharper:${PATH}"
+RUN dotnet tool install -g JetBrains.ReSharper.GlobalTools
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # this is the same as the base image
 WORKDIR /
 
-COPY --from=builder /build/resharper-action /usr/bin
-CMD resharper-action
+COPY --from=builder /build/resharper-analyzer-action /usr/bin
+CMD resharper-analyzer-action

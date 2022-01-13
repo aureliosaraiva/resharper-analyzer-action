@@ -22,13 +22,15 @@ func main() {
 		usage()
 	}
 
+
 	path, err := filepath.Abs(args[0])
 	if err != nil {
 		panic(err)
 	}
 
-	ext := filepath.Ext(path)
 
+	ext := filepath.Ext(path)
+	
 	if ext == ".sln" {
 		if !*noRestorePtr {
 			dotnetRestore(path)
@@ -64,12 +66,17 @@ func dotnetRestore(slnPath string) {
 func generateReport(slnPath string) string {
 	outPath := filepath.Join(os.TempDir(), "report.xml")
 
-	cmd := exec.Command("inspectcode.sh", "--output="+outPath, slnPath)
+	fmt.Fprintf(os.Stderr, "generateReport")
+
+	cmd := exec.Command("jb","inspectcode", "--output="+outPath, slnPath)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 
+	fmt.Fprintf(os.Stderr, " run generateReport")
+
 	err := cmd.Run()
 	if err != nil {
+		fmt.Fprintf(os.Stderr, err.Error())
 		os.Exit(1)
 	}
 
@@ -125,7 +132,7 @@ func severityToLevel(severity string) string {
 func usage() {
 	exe, _ := os.Executable()
 	fmt.Fprintf(os.Stderr, `
-Usage: %s [--no-restore] (solution.sln|results.xml)
+EDITADOUsage: %s [--no-restore] (solution.sln|results.xml)
 
 There are two modes of operation:
 

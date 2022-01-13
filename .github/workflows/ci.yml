@@ -32,14 +32,6 @@ jobs:
       - name: Build image
         run: docker build -t $IMAGE_ID .
 
-      - name: get sample
-        run: git clone https://github.com/aidansteele/demo-serverless-aspnetcore.git
-
-      - name: run it
-        uses: ./
-        with:
-          solution: demo-serverless-aspnetcore/HelloWorld.sln
-
       - name: Push image
         if: github.event_name == 'push'
         run: |
