@@ -43,5 +43,5 @@ jobs:
           # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
-          docker tag glassechidna/resharper-action $IMAGE_ID:$VERSION
+          docker tag aureliosaraiva/resharper-analyzer-action $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION

@@ -9,11 +9,11 @@ inputs:
     required: false
 runs:
   using: docker
-  image: docker://glassechidna/resharper-action
+  image: docker://aureliosaraiva/resharper-analyzer-action
   args:
     - sh
     - -c
-    - "resharper-action ${INPUT_SOLUTION}${INPUT_REPORT}"
+    - "resharper-analyzer-action ${INPUT_SOLUTION}${INPUT_REPORT}"
 branding:
   color: red
   icon: alert-octagon
