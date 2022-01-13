@@ -14,7 +14,6 @@ import (
 )
 
 func main() {
-	noRestorePtr := pflag.Bool("no-restore", false, "")
 	pflag.Parse()
 
 	args := pflag.Args()
@@ -32,10 +31,6 @@ func main() {
 	ext := filepath.Ext(path)
 	
 	if ext == ".sln" {
-		if !*noRestorePtr {
-			dotnetRestore(path)
-		}
-
 		path = generateReport(path)
 		ext = filepath.Ext(path)
 	}
