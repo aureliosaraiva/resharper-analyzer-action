@@ -14,7 +14,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_ID: aureliosaraiva/resharper-action
+  IMAGE_ID: aureliosaraiva/resharper-analyzer-action
 
 jobs:
   push:
