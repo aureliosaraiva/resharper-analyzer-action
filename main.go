@@ -63,7 +63,7 @@ func generateReport(slnPath string) string {
 
 	fmt.Fprintf(os.Stderr, "generateReport")
 
-	cmd := exec.Command("jb","inspectcode", "--output="+outPath, slnPath)
+	cmd := exec.Command("jb","inspectcode", "--no-build --output="+outPath, slnPath)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 
